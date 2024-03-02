@@ -4,14 +4,14 @@ import { showToast } from "../components/Toaster";
 
 const BASE_URL = "http://localhost:5000/api/v1";
 
-const getApi = async<T>(tag: string = "", isHeader: boolean = false): Promise<AxiosResponse<T>> => {
+const getApi = async<T>(tag: string = ""): Promise<AxiosResponse<T>> => {
     try {
         const response = await axios.get<T>(BASE_URL + tag, {
-            headers: isHeader
-                ? {
-                    Authorization: getJwtToken(),
-                }
-                : {},
+            headers:
+            {
+                Authorization: 'Bearer ' + getJwtToken(),
+            }
+            ,
         });
         return response;
     } catch (error) {
@@ -36,7 +36,7 @@ const postApi = async <T>(
                 ? {
                     "Content-Type": flagCheck,
                     accept: "application/json",
-                    Authorization: getJwtToken(),
+                    Authorization: 'Bearer ' + getJwtToken(),
                 }
                 : {},
         });
@@ -57,7 +57,7 @@ const deleteApi = async <T>(
                 ? {
                     "Content-Type": "application/json",
                     accept: "application/json",
-                    Authorization: getJwtToken(),
+                    Authorization: 'Bearer ' + getJwtToken(),
                 }
                 : {},
         });
@@ -75,7 +75,7 @@ const PutApi = async <T>(
 ): Promise<AxiosResponse<T>> => {
     const headers = {
         accept: "application/json",
-        Authorization: getJwtToken(),
+        Authorization: 'Bearer ' + getJwtToken(),
     };
 
     try {
